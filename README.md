@@ -1,66 +1,70 @@
-# Sahil Chakraborty’s GitHub Repository
+# Electricity Consumption Forecasting
 
-Welcome to my GitHub repository! Here, you'll find a collection of projects and code snippets showcasing my skills in data science, machine learning, software development, and more. Feel free to explore, clone, and contribute to the projects.
+## Overview
 
-## 📂 Repository Contents
+This project involves developing models to predict electricity consumption using data from Delhi, India. The goal is to provide accurate forecasts to aid in energy management and planning.
 
-### 1. Electricity Consumption Forecasting
-**Description:** Developed models to predict electricity consumption using data from Delhi, India.  
-**Technologies Used:** Python, Random Forest, ARIMA, Matplotlib, Seaborn  
-**Key Features:**
-- Time series forecasting with Random Forest and ARIMA.
-- Data visualization to identify trends and anomalies.
-- Achieved 90% prediction accuracy.
+## Description
 
-### 2. Text to SQL ITR6
-**Description:** Created a dataset from ITR6 forms and fine-tuned an NLP model to enhance data extraction.  
-**Technologies Used:** Python, FLAN-T5, NLP, Data Preprocessing  
-**Key Features:**
-- Dataset creation from ITR6 forms.
-- Improved data extraction accuracy by 15%.
-- Utilized NLP techniques for entity recognition.
+The project utilizes both Random Forest and ARIMA models to forecast electricity consumption. Various data visualization techniques are employed to identify trends and anomalies in the dataset.
 
-### 3. Sales Data Analysis
-**Description:** Analyzed sales data to identify trends and forecast future sales.  
-**Technologies Used:** Python, Pandas, NumPy, Tableau  
-**Key Features:**
-- Data analysis using Pandas and NumPy.
-- Interactive dashboards with Tableau.
-- Improved sales forecast accuracy by 20%.
+## Technologies Used
 
-## 📊 Technologies & Tools
+- **Programming Language:** Python
+- **Libraries/Frameworks:** Random Forest, ARIMA, Matplotlib, Seaborn
 
-- **Languages:** C, C++, Python, Java, JavaScript, HTML, CSS
-- **Frameworks & Libraries:** Django, React, Pandas, NumPy, Matplotlib, Seaborn
-- **Databases:** MySQL, Oracle SQL, MongoDB
-- **Tools:** Git, Docker, Kubernetes, AWS, Azure, GCP
-- **Concepts:** Data Structures, Algorithms, OOPs, Networking, REST API, UNIX
+## Key Features
 
-## 🛠️ How to Use This Repository
+- **Time Series Forecasting:** Implemented Random Forest and ARIMA models to predict future electricity consumption.
+- **Data Visualization:** Used Matplotlib and Seaborn to visualize trends and anomalies in the data.
+- **Performance:** Achieved a prediction accuracy of 90%.
+
+## Installation
 
 1. **Clone the Repository**
 
     ```bash
-    git clone https://github.com/sahil7359/your-repository-name.git
+    git clone https://github.com/sahil7359/electricity-consumption-forecasting.git
     ```
 
 2. **Navigate to the Project Directory**
 
     ```bash
-    cd your-repository-name
+    cd electricity-consumption-forecasting
     ```
 
 3. **Install Dependencies**
+
+    Ensure you have Python and pip installed, then run:
 
     ```bash
     pip install -r requirements.txt
     ```
 
-4. **Run the Project**
+## Usage
+
+1. **Prepare Your Data**
+
+    Make sure your data is in the required format. You can use the provided sample data or replace it with your own.
+
+2. **Run the Forecasting Script**
+
+    Execute the main script to run the forecasting models:
 
     ```bash
     python main.py
     ```
 
-Feel free to reach out if you have any questions or need further information!
+3. **View Results**
+
+    Results and visualizations will be saved in the `results/` directory.
+
+## Contributing
+
+Feel free to fork this repository, make changes, and submit pull requests. Contributions and suggestions are welcome!
+
+
+## Contact
+
+For any questions or comments, please reach out to me at [help.sahil.gob@gmail.com](mailto:help.sahil.gob@gmail.com).
 
