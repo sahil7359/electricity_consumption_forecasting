@@ -8,3 +8,10 @@ env/
 .DS_Store
 results/
 *.pkl
+
+# tooling
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/

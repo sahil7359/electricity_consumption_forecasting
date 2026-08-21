@@ -1,6 +1,8 @@
+# Runtime dependencies for the Streamlit demo.
+# The package itself is defined in pyproject.toml — install with `pip install -e .`
+# for development. This file exists because Streamlit Community Cloud reads it.
 pandas>=2.0
 numpy>=1.24
-matplotlib>=3.7
 statsmodels>=0.14
-chart-studio>=1.1
-jupyter>=1.0
+plotly>=5.20
+streamlit>=1.40
