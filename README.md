@@ -67,7 +67,7 @@ git clone https://github.com/sahil7359/electricity_consumption_forecasting.git
 ```
 
 ```bash
-cd electricity_consumption_forecasting && pip install pandas numpy matplotlib statsmodels jupyter
+cd electricity_consumption_forecasting && pip install -r requirements.txt
 ```
 
 ```bash
@@ -85,6 +85,24 @@ there is nothing else to download.
 | `Electric_Production.csv` | The dataset (397 monthly observations) |
 | `report.pdf` | Written report of the findings |
 | `ss/` | Plots and figures generated during the analysis |
+
+## Results
+
+### Achieving stationarity
+
+ARIMA assumes a stationary series — constant mean and variance over time. The raw
+production index is neither: it trends upward and swings seasonally. After
+transformation and differencing, both conditions hold:
+
+![Rolling mean and standard deviation after transformation](ss/png10.png)
+
+The **rolling mean sits flat at zero** across three decades and the **rolling standard
+deviation stays within a narrow band** — the visual confirmation that pairs with the
+ADF test result. The dense blue oscillation is the seasonal signal, which is exactly
+what should remain once trend is removed.
+
+Full plots — decomposition, ACF/PACF, and forecast overlays — are in [`ss/`](ss/), and
+the written analysis is in [`report.pdf`](report.pdf).
 
 ## What I'd do differently now
 
