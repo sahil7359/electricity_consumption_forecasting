@@ -1,70 +1,104 @@
-# Electricity Consumption Forecasting
+# Electricity Production Forecasting
 
-## Overview
+Time-series analysis and forecasting of monthly electric & gas utility production,
+using classical statistical methods — stationarity testing, seasonal decomposition,
+and ARIMA / exponential smoothing.
 
-This project involves developing models to predict electricity consumption using data from Delhi, India. The goal is to provide accurate forecasts to aid in energy management and planning.
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
+![statsmodels](https://img.shields.io/badge/statsmodels-8CAAE6)
+![pandas](https://img.shields.io/badge/pandas-150458?logo=pandas&logoColor=white)
+![Jupyter](https://img.shields.io/badge/Jupyter-F37626?logo=jupyter&logoColor=white)
 
-## Description
+---
 
-The project utilizes both Random Forest and ARIMA models to forecast electricity consumption. Various data visualization techniques are employed to identify trends and anomalies in the dataset.
+## The problem
 
-## Technologies Used
+Utility production is strongly seasonal — demand swings with heating and cooling
+cycles — which makes naive trend-fitting a poor forecaster. The interesting question
+isn't "can we draw a line through this", it's whether the series can be made
+**stationary** enough for an ARIMA model to be valid at all, and what the seasonal
+component looks like once you strip the trend out.
 
-- **Programming Language:** Python
-- **Libraries/Frameworks:** Random Forest, ARIMA, Matplotlib, Seaborn
+## Dataset
 
-## Key Features
+`Electric_Production.csv` — a monthly index of US industrial production for electric
+and gas utilities (FRED series `IPG2211A2N`).
 
-- **Time Series Forecasting:** Implemented Random Forest and ARIMA models to predict future electricity consumption.
-- **Data Visualization:** Used Matplotlib and Seaborn to visualize trends and anomalies in the data.
-- **Performance:** Achieved a prediction accuracy of 90%.
+| | |
+|---|---|
+| **Frequency** | Monthly |
+| **Coverage** | January 1991 → January 2024 |
+| **Observations** | 397 |
+| **Columns** | `DATE`, `Value` (production index) |
 
-## Installation
+## Approach
 
-1. **Clone the Repository**
+1. **Exploratory analysis** — plot the raw series, identify trend and seasonal swing.
+2. **Seasonal decomposition** (`seasonal_decompose`) — split the series into
+   trend, seasonal, and residual components to see what each contributes.
+3. **Stationarity testing** — Augmented Dickey-Fuller (ADF) test, then differencing
+   until the series is stationary. This determines the `d` term for ARIMA.
+4. **ACF / PACF inspection** — read off candidate `p` and `q` orders from the
+   autocorrelation and partial autocorrelation plots.
+5. **Modelling** — fit and compare:
+   - **ARIMA** — on the differenced, stationary series
+   - **Simple Exponential Smoothing**
+   - **Holt-Winters Exponential Smoothing** — captures trend + seasonality directly
+6. **Evaluation** — forecasts scored with **RMSE** and **MAPE**.
 
-    ```bash
-    git clone https://github.com/sahil7359/electricity-consumption-forecasting.git
-    ```
+> A note on metrics: this is a regression/forecasting problem, so RMSE and MAPE are
+> reported rather than "accuracy" — accuracy is a classification metric and doesn't
+> apply to a continuous series.
 
-2. **Navigate to the Project Directory**
+## Tech stack
 
-    ```bash
-    cd electricity-consumption-forecasting
-    ```
+| Purpose | Library |
+|---|---|
+| Data handling | pandas, numpy |
+| Statistical modelling | statsmodels (`ARIMA`, `ExponentialSmoothing`, `seasonal_decompose`, `adfuller`, `acf`/`pacf`) |
+| Visualisation | matplotlib |
 
-3. **Install Dependencies**
+## Running it
 
-    Ensure you have Python and pip installed, then run:
+This project is a single self-contained notebook.
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+```bash
+git clone https://github.com/sahil7359/electricity_consumption_forecasting.git
+```
 
-## Usage
+```bash
+cd electricity_consumption_forecasting && pip install pandas numpy matplotlib statsmodels jupyter
+```
 
-1. **Prepare Your Data**
+```bash
+jupyter notebook project.ipynb
+```
 
-    Make sure your data is in the required format. You can use the provided sample data or replace it with your own.
+Run the cells top to bottom — the dataset is committed alongside the notebook, so
+there is nothing else to download.
 
-2. **Run the Forecasting Script**
+## What's in here
 
-    Execute the main script to run the forecasting models:
+| File | Contents |
+|---|---|
+| `project.ipynb` | Full analysis — EDA, decomposition, ADF testing, model fitting, evaluation |
+| `Electric_Production.csv` | The dataset (397 monthly observations) |
+| `report.pdf` | Written report of the findings |
+| `ss/` | Plots and figures generated during the analysis |
 
-    ```bash
-    python main.py
-    ```
+## What I'd do differently now
 
-3. **View Results**
+Honest notes, since this was an earlier project:
 
-    Results and visualizations will be saved in the `results/` directory.
+- **Hold out a proper test set.** Forecast quality should be judged on a chronological
+  split, never a random one — random splits leak future information into training.
+- **Use SARIMA over ARIMA.** The series is visibly seasonal; a seasonal ARIMA models
+  that directly instead of relying on differencing to remove it.
+- **Add a baseline.** A seasonal-naive forecast (this month = same month last year)
+  is the bar any real model has to clear, and it's often surprisingly hard to beat.
+- **Package the code.** Extracting the notebook into modules with a `requirements.txt`
+  would make results reproducible rather than depending on ambient library versions.
 
-## Contributing
+## License
 
-Feel free to fork this repository, make changes, and submit pull requests. Contributions and suggestions are welcome!
-
-
-## Contact
-
-For any questions or comments, please reach out to me at [help.sahil.gob@gmail.com](mailto:help.sahil.gob@gmail.com).
-
+Not currently licensed. Available for reference and learning.
